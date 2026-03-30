@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,10 +31,8 @@
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    padding: 0;
   }
 
-  /* HEADER */
   header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -46,562 +45,152 @@
     z-index: 100;
   }
 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-icon { width: 36px; height: 36px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .logo-text { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; }
+  .logo-sub { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
+  .badge { font-family: 'IBM Plex Mono', monospace; font-size: 10px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 20px; color: var(--muted); letter-spacing: 0.1em; }
 
-  .logo-icon {
-    width: 36px; height: 36px;
-    background: var(--accent);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-  }
+  main { max-width: 1100px; margin: 0 auto; padding: 40px; }
 
-  .logo-text {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    text-transform: uppercase;
-  }
+  .step-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 24px; }
+  .step-card.active { border-color: var(--accent); }
+  .step-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+  .step-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; color: var(--accent); background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.2); border-radius: 6px; padding: 4px 10px; letter-spacing: 0.1em; }
+  .step-title { font-size: 16px; font-weight: 600; }
 
-  .logo-sub {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-  }
+  .platform-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .platform-btn { flex: 1; min-width: 140px; padding: 16px 20px; background: var(--surface2); border: 2px solid var(--border); border-radius: 12px; color: var(--muted); font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 10px; }
+  .platform-btn:hover { border-color: var(--accent); color: var(--text); }
+  .platform-btn.selected { border-color: var(--accent); background: rgba(0,229,255,0.08); color: var(--accent); }
 
-  .badge {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    padding: 4px 10px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-  }
-
-  /* MAIN */
-  main {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 40px 40px;
-  }
-
-  /* STEP CARD */
-  .step-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px;
-    margin-bottom: 24px;
-    transition: border-color 0.2s;
-  }
-
-  .step-card.active {
-    border-color: var(--accent);
-  }
-
-  .step-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 24px;
-  }
-
-  .step-num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--accent);
-    background: rgba(0,229,255,0.08);
-    border: 1px solid rgba(0,229,255,0.2);
-    border-radius: 6px;
-    padding: 4px 10px;
-    letter-spacing: 0.1em;
-  }
-
-  .step-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  /* PLATFORM SELECT */
-  .platform-row {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .platform-btn {
-    flex: 1;
-    min-width: 140px;
-    padding: 16px 20px;
-    background: var(--surface2);
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    color: var(--muted);
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .platform-btn:hover {
-    border-color: var(--accent);
-    color: var(--text);
-  }
-
-  .platform-btn.selected {
-    border-color: var(--accent);
-    background: rgba(0,229,255,0.08);
-    color: var(--accent);
-  }
-
-  .platform-icon { font-size: 20px; }
-
-  /* PERIOD SELECT */
-  .period-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 16px;
-  }
-
-  .period-btn {
-    padding: 8px 18px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    color: var(--muted);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    letter-spacing: 0.05em;
-  }
-
+  .period-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .period-btn { padding: 8px 18px; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 12px; cursor: pointer; transition: all 0.2s; letter-spacing: 0.05em; }
   .period-btn:hover { border-color: var(--accent); color: var(--text); }
-  .period-btn.selected {
-    border-color: var(--accent);
-    background: rgba(0,229,255,0.08);
-    color: var(--accent);
-  }
+  .period-btn.selected { border-color: var(--accent); background: rgba(0,229,255,0.08); color: var(--accent); }
 
-  /* UPLOAD AREA */
-  .upload-area {
-    border: 2px dashed var(--border);
-    border-radius: 12px;
-    padding: 48px 32px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-  }
-
-  .upload-area:hover, .upload-area.dragover {
-    border-color: var(--accent);
-    background: rgba(0,229,255,0.04);
-  }
-
+  .upload-area { border: 2px dashed var(--border); border-radius: 12px; padding: 48px 32px; text-align: center; cursor: pointer; transition: all 0.2s; }
+  .upload-area:hover, .upload-area.dragover { border-color: var(--accent); background: rgba(0,229,255,0.04); }
   .upload-icon { font-size: 40px; margin-bottom: 12px; }
-
-  .upload-title {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-
-  .upload-sub {
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 20px;
-  }
-
+  .upload-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+  .upload-sub { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
   #fileInput { display: none; }
+  .btn-upload { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; background: var(--accent); color: #000; border: none; border-radius: 8px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; }
 
-  .btn-upload {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 22px;
-    background: var(--accent);
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.2s;
-  }
+  .file-info { display: none; align-items: center; gap: 10px; padding: 12px 16px; background: rgba(168,255,62,0.08); border: 1px solid rgba(168,255,62,0.2); border-radius: 8px; margin-top: 12px; font-size: 13px; color: var(--green); font-family: 'IBM Plex Mono', monospace; }
 
-  .btn-upload:hover { opacity: 0.85; }
-
-  .file-info {
-    display: none;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    background: rgba(168,255,62,0.08);
-    border: 1px solid rgba(168,255,62,0.2);
-    border-radius: 8px;
-    margin-top: 12px;
-    font-size: 13px;
-    color: var(--green);
-    font-family: 'IBM Plex Mono', monospace;
-  }
-
-  /* THRESHOLD */
-  .threshold-row {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
-  .threshold-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex: 1;
-    min-width: 180px;
-  }
-
-  .threshold-label {
-    font-size: 12px;
-    color: var(--muted);
-    font-family: 'IBM Plex Mono', monospace;
-    letter-spacing: 0.05em;
-  }
-
-  .threshold-input {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
-    color: var(--text);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    width: 100%;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
+  .threshold-row { display: flex; gap: 20px; flex-wrap: wrap; }
+  .threshold-group { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 180px; }
+  .threshold-label { font-size: 12px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.05em; }
+  .threshold-input { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; color: var(--text); font-family: 'IBM Plex Mono', monospace; font-size: 14px; width: 100%; outline: none; transition: border-color 0.2s; }
   .threshold-input:focus { border-color: var(--accent); }
 
-  /* ANALYZE BUTTON */
-  .btn-analyze {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, var(--accent), #0097a7);
-    border: none;
-    border-radius: 12px;
-    color: #000;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    letter-spacing: 0.03em;
-    margin-top: 8px;
-  }
-
+  .btn-analyze { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--accent), #0097a7); border: none; border-radius: 12px; color: #000; font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
   .btn-analyze:hover { opacity: 0.9; transform: translateY(-1px); }
   .btn-analyze:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
-  /* RESULTS */
   #resultsSection { display: none; }
 
-  .results-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 24px;
-    flex-wrap: gap;
-  }
+  .results-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .results-title { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
 
-  .results-title {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .summary-pills {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 28px;
-  }
-
-  .pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 500;
-    border: 1px solid;
-  }
-
+  .summary-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+  .pill { display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 10px; font-size: 13px; font-weight: 500; border: 1px solid; }
   .pill-red { background: rgba(255,77,109,0.1); border-color: rgba(255,77,109,0.3); color: var(--red); }
   .pill-yellow { background: rgba(255,179,0,0.1); border-color: rgba(255,179,0,0.3); color: var(--yellow); }
   .pill-green { background: rgba(168,255,62,0.1); border-color: rgba(168,255,62,0.3); color: var(--green); }
+  .pill-count { font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 600; }
 
-  .pill-count { font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 600; }
+  .correlation-panel { background: rgba(255,179,0,0.05); border: 1px solid rgba(255,179,0,0.2); border-radius: 12px; padding: 20px 24px; margin-bottom: 24px; }
+  .correlation-title { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--warn); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+  .correlation-list { display: flex; flex-direction: column; gap: 10px; }
+  .correlation-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .correlation-headline { font-size: 13px; font-weight: 600; color: var(--warn); margin-bottom: 6px; }
+  .correlation-detail { font-size: 12px; color: var(--muted); line-height: 1.6; }
 
-  /* ANOMALY TABLE */
-  .anomaly-grid {
-    display: grid;
-    gap: 12px;
-  }
+  .filter-row { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+  .filter-label { font-size: 12px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+  .filter-select { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; color: var(--text); font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; outline: none; cursor: pointer; }
 
-  .anomaly-row {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 24px;
-    display: grid;
-    grid-template-columns: 1fr 120px 120px 120px 100px;
-    align-items: center;
-    gap: 16px;
-    transition: border-color 0.2s;
-  }
+  .table-hint { font-size: 11px; color: var(--muted); margin-bottom: 10px; font-family: 'IBM Plex Mono', monospace; }
 
-  .anomaly-row:hover { border-color: var(--border); }
+  .table-head { display: grid; grid-template-columns: 1.8fr 100px 100px 100px 90px 30px; gap: 12px; padding: 8px 20px; margin-bottom: 4px; }
+  .table-head span { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .table-head span:not(:first-child) { text-align: right; }
+  .table-head span:nth-child(5) { text-align: center; }
+  .table-head span:last-child { text-align: center; }
+
+  .anomaly-grid { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+
+  .anomaly-row { background: var(--surface); border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1.8fr 100px 100px 100px 90px 30px; align-items: center; gap: 12px; cursor: pointer; transition: background 0.15s; }
+  .anomaly-row:last-of-type { border-bottom: none; }
+  .anomaly-row:hover { background: var(--surface2); }
   .anomaly-row.critical { border-left: 3px solid var(--red); }
   .anomaly-row.warning { border-left: 3px solid var(--yellow); }
   .anomaly-row.normal { border-left: 3px solid var(--green); }
+  .anomaly-row.open { background: var(--surface2); }
 
-  .anomaly-metric {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-  }
+  .anomaly-main { padding: 16px 4px 16px 20px; }
+  .anomaly-metric { font-size: 13px; font-weight: 600; color: var(--text); }
+  .anomaly-meta { font-size: 11px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; margin-top: 2px; }
 
-  .anomaly-meta {
-    font-size: 11px;
-    color: var(--muted);
-    font-family: 'IBM Plex Mono', monospace;
-    margin-top: 3px;
-  }
+  .anomaly-val { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--text); text-align: right; }
+  .anomaly-avg { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--muted); text-align: right; }
+  .anomaly-change { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; text-align: right; }
+  .change-bad { color: var(--red); }
+  .change-good { color: var(--green); }
+  .change-neutral { color: var(--muted); }
 
-  .anomaly-val {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    color: var(--text);
-    text-align: right;
-  }
-
-  .anomaly-avg {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    color: var(--muted);
-    text-align: right;
-  }
-
-  .anomaly-change {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    font-weight: 600;
-    text-align: right;
-  }
-
-  .change-up { color: var(--red); }
-  .change-up.good { color: var(--green); }
-  .change-down { color: var(--green); }
-  .change-down.bad { color: var(--red); }
-
-  .status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    justify-content: center;
-  }
-
+  .status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-family: 'IBM Plex Mono', monospace; font-weight: 600; letter-spacing: 0.05em; }
   .status-critical { background: rgba(255,77,109,0.15); color: var(--red); }
   .status-warning { background: rgba(255,179,0,0.15); color: var(--yellow); }
   .status-normal { background: rgba(168,255,62,0.15); color: var(--green); }
 
-  .table-head {
-    display: grid;
-    grid-template-columns: 1fr 120px 120px 120px 100px;
-    gap: 16px;
-    padding: 8px 24px;
-    margin-bottom: 4px;
-  }
+  .expand-icon { color: var(--muted); font-size: 14px; text-align: center; padding-right: 16px; transition: transform 0.25s; user-select: none; }
+  .anomaly-row.open .expand-icon { transform: rotate(180deg); color: var(--accent); }
 
-  .table-head span {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
+  /* WHY PANEL */
+  .why-panel { display: none; background: var(--surface2); border-bottom: 1px solid var(--border); padding: 20px 24px; }
+  .why-panel.open { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; animation: fadeIn 0.25s ease; }
 
-  .table-head span:not(:first-child) { text-align: right; }
-  .table-head span:last-child { text-align: center; }
+  .why-block { padding: 16px; border-radius: 10px; border: 1px solid; }
+  .why-block.hypotheses { background: rgba(255,77,109,0.05); border-color: rgba(255,77,109,0.2); }
+  .why-block.actions { background: rgba(0,229,255,0.05); border-color: rgba(0,229,255,0.2); }
+  .why-block.context { background: rgba(168,255,62,0.05); border-color: rgba(168,255,62,0.2); }
 
-  /* CAMPAIGN FILTER */
-  .filter-row {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
+  .why-block-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+  .why-block.hypotheses .why-block-title { color: var(--red); }
+  .why-block.actions .why-block-title { color: var(--accent); }
+  .why-block.context .why-block-title { color: var(--green); }
 
-  .filter-label {
-    font-size: 12px;
-    color: var(--muted);
-    font-family: 'IBM Plex Mono', monospace;
-  }
+  .why-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .why-list li { font-size: 12px; color: var(--text); line-height: 1.55; display: flex; gap: 8px; align-items: flex-start; }
+  .why-icon { flex-shrink: 0; font-style: normal; font-size: 11px; font-family: 'IBM Plex Mono', monospace; margin-top: 1px; }
+  .why-block.hypotheses .why-icon { color: var(--red); }
+  .why-block.actions .why-icon { color: var(--accent); }
+  .why-block.context .why-icon { color: var(--green); }
 
-  .filter-select {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 14px;
-    color: var(--text);
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 13px;
-    outline: none;
-    cursor: pointer;
-  }
+  .section-divider { display: flex; align-items: center; gap: 12px; margin: 24px 0 16px; }
+  .section-divider span { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; white-space: nowrap; }
+  .section-divider::before, .section-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  /* INSIGHT BOX */
-  .insight-box {
-    background: rgba(0,229,255,0.04);
-    border: 1px solid rgba(0,229,255,0.15);
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-top: 24px;
-  }
-
-  .insight-title {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-
-  .insight-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .insight-list li {
-    font-size: 13px;
-    color: var(--text);
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    line-height: 1.5;
-  }
-
-  .insight-list li::before {
-    content: '→';
-    color: var(--accent);
-    flex-shrink: 0;
-    font-family: 'IBM Plex Mono', monospace;
-  }
-
-  /* RESET */
-  .btn-reset {
-    padding: 10px 22px;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--muted);
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
+  .btn-reset { padding: 10px 22px; background: transparent; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.2s; }
   .btn-reset:hover { border-color: var(--accent2); color: var(--accent2); }
 
-  /* ERROR */
-  .error-box {
-    background: rgba(255,77,109,0.08);
-    border: 1px solid rgba(255,77,109,0.25);
-    border-radius: 8px;
-    padding: 14px 18px;
-    font-size: 13px;
-    color: var(--red);
-    margin-top: 12px;
-    display: none;
-    font-family: 'IBM Plex Mono', monospace;
-  }
-
-  /* DIVIDER */
-  .section-divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 8px 0 24px;
-  }
-
-  .section-divider span {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .section-divider::before, .section-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* EMPTY STATE */
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--muted);
-    font-size: 14px;
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 700px) {
-    main { padding: 20px 16px; }
-    header { padding: 16px 20px; }
-    .anomaly-row { grid-template-columns: 1fr 90px 80px; }
-    .anomaly-row .anomaly-avg, .anomaly-row .anomaly-val { display: none; }
-    .table-head { grid-template-columns: 1fr 90px 80px; }
-    .table-head span:nth-child(2), .table-head span:nth-child(3) { display: none; }
-  }
+  .error-box { background: rgba(255,77,109,0.08); border: 1px solid rgba(255,77,109,0.25); border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--red); margin-top: 12px; display: none; font-family: 'IBM Plex Mono', monospace; }
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 14px; }
 
   .fade-in { animation: fadeIn 0.4s ease forwards; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  @media (max-width: 700px) {
+    main { padding: 20px 16px; }
+    header { padding: 16px 20px; }
+    .table-head { display: none; }
+    .anomaly-row { grid-template-columns: 1fr 80px 80px 30px; }
+    .anomaly-avg, .anomaly-val { display: none; }
+    .why-panel.open { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -611,7 +200,7 @@
     <div class="logo-icon">📡</div>
     <div>
       <div class="logo-text">Anomaly Detector</div>
-      <div class="logo-sub">PPC Performance Monitor</div>
+      <div class="logo-sub">PPC Performance Monitor · With Diagnostics</div>
     </div>
   </div>
   <div class="badge">NO API · LOCAL ONLY</div>
@@ -619,18 +208,17 @@
 
 <main>
 
-  <!-- STEP 1: Platform -->
-  <div class="step-card active" id="card1">
+  <div class="step-card active">
     <div class="step-header">
       <span class="step-num">STEP 01</span>
-      <span class="step-title">Select Platform</span>
+      <span class="step-title">Select Platform & Period</span>
     </div>
     <div class="platform-row">
       <button class="platform-btn" onclick="selectPlatform('google')" id="btn-google">
-        <span class="platform-icon">🔵</span> Google Ads
+        <span>🔵</span> Google Ads
       </button>
       <button class="platform-btn" onclick="selectPlatform('meta')" id="btn-meta">
-        <span class="platform-icon">🟣</span> Meta Ads
+        <span>🟣</span> Meta Ads
       </button>
     </div>
     <div class="period-row">
@@ -640,46 +228,40 @@
     </div>
   </div>
 
-  <!-- STEP 2: Upload -->
-  <div class="step-card" id="card2">
+  <div class="step-card">
     <div class="step-header">
       <span class="step-num">STEP 02</span>
       <span class="step-title">Upload CSV Export</span>
     </div>
-    <div class="upload-area" id="uploadArea" ondragover="handleDrag(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+    <div class="upload-area" id="uploadArea" ondragover="handleDrag(event)" ondragleave="handleDragLeave()" ondrop="handleDrop(event)">
       <div class="upload-icon">📂</div>
       <div class="upload-title">Drop your CSV file here</div>
       <div class="upload-sub" id="uploadHint">Export from Google Ads or Meta Ads → Reports → Download CSV</div>
-      <label class="btn-upload" for="fileInput">
-        <span>↑</span> Choose File
-      </label>
+      <label class="btn-upload" for="fileInput"><span>↑</span> Choose File</label>
       <input type="file" id="fileInput" accept=".csv" onchange="handleFile(this.files[0])">
     </div>
     <div class="file-info" id="fileInfo">
-      <span>✓</span>
-      <span id="fileName">—</span>
-      <span id="fileRows" style="color: var(--muted)"></span>
+      <span>✓</span><span id="fileName">—</span><span id="fileRows" style="color:var(--muted)"></span>
     </div>
     <div class="error-box" id="errorBox"></div>
   </div>
 
-  <!-- STEP 3: Thresholds -->
-  <div class="step-card" id="card3">
+  <div class="step-card">
     <div class="step-header">
       <span class="step-num">STEP 03</span>
       <span class="step-title">Set Alert Thresholds</span>
     </div>
     <div class="threshold-row">
       <div class="threshold-group">
-        <label class="threshold-label">🔴 CRITICAL — flag if change exceeds</label>
-        <input class="threshold-input" type="number" id="threshCritical" value="30" min="1" max="200"> 
+        <label class="threshold-label">🔴 CRITICAL — flag if change exceeds (%)</label>
+        <input class="threshold-input" type="number" id="threshCritical" value="30" min="1" max="200">
       </div>
       <div class="threshold-group">
-        <label class="threshold-label">🟡 WARNING — flag if change exceeds</label>
+        <label class="threshold-label">🟡 WARNING — flag if change exceeds (%)</label>
         <input class="threshold-input" type="number" id="threshWarning" value="15" min="1" max="200">
       </div>
       <div class="threshold-group">
-        <label class="threshold-label">📊 Baseline periods to compare</label>
+        <label class="threshold-label">📊 Baseline periods to average</label>
         <input class="threshold-input" type="number" id="baselinePeriods" value="3" min="2" max="10">
       </div>
     </div>
@@ -688,16 +270,19 @@
     </button>
   </div>
 
-  <!-- RESULTS -->
   <div id="resultsSection">
     <div class="section-divider"><span>Analysis Results</span></div>
-
-    <div class="results-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+    <div class="results-topbar">
       <div class="results-title" id="resultsTitle">—</div>
       <button class="btn-reset" onclick="resetAll()">↺ New Analysis</button>
     </div>
 
     <div class="summary-pills" id="summaryPills"></div>
+
+    <div class="correlation-panel" id="correlationPanel" style="display:none">
+      <div class="correlation-title">🔗 Cross-Metric Pattern Analysis</div>
+      <div class="correlation-list" id="correlationList"></div>
+    </div>
 
     <div class="filter-row">
       <span class="filter-label">FILTER:</span>
@@ -712,92 +297,264 @@
       </select>
     </div>
 
+    <div class="table-hint">💡 Click any row to expand the full diagnostic breakdown — causes, actions & context</div>
+
     <div class="table-head">
       <span>Metric / Campaign</span>
       <span>Latest</span>
-      <span>Avg (baseline)</span>
+      <span>Avg Baseline</span>
       <span>Change</span>
       <span style="text-align:center">Status</span>
+      <span></span>
     </div>
     <div class="anomaly-grid" id="anomalyGrid"></div>
-
-    <div class="insight-box" id="insightBox">
-      <div class="insight-title">💡 Key Insights</div>
-      <ul class="insight-list" id="insightList"></ul>
-    </div>
   </div>
 
 </main>
 
 <script>
 // ─── STATE ───────────────────────────────────────────────────────────────────
-let state = {
-  platform: null,
-  period: 'daily',
-  rawData: [],
-  headers: [],
-  analysisResults: []
-};
+const state = { platform: null, period: 'daily', rawData: [], headers: [], analysisResults: [] };
 
-// ─── PLATFORM COLUMN MAPS ────────────────────────────────────────────────────
+// ─── COLUMN MAPS ─────────────────────────────────────────────────────────────
 const GOOGLE_COLS = {
-  date: ['Day', 'Date', 'Week', 'Month'],
-  campaign: ['Campaign', 'Campaign name'],
+  date: ['Day','Date','Week','Month'],
+  campaign: ['Campaign','Campaign name'],
   clicks: ['Clicks'],
-  impressions: ['Impr.', 'Impressions'],
+  impressions: ['Impr.','Impressions'],
   ctr: ['CTR'],
-  cpc: ['Avg. CPC', 'Avg CPC'],
-  cost: ['Cost', 'Spend'],
-  conversions: ['Conversions', 'Conv.'],
-  cpa: ['Cost / conv.', 'Cost/conv.'],
-  roas: ['Conv. value/cost', 'ROAS']
+  cpc: ['Avg. CPC','Avg CPC'],
+  cost: ['Cost','Spend'],
+  conversions: ['Conversions','Conv.'],
+  cpa: ['Cost / conv.','Cost/conv.'],
+  roas: ['Conv. value/cost','ROAS'],
+  qualityScore: ['Qual. score','Quality score'],
+  searchImprShare: ['Search impr. share','Search Impression Share']
 };
 
 const META_COLS = {
-  date: ['Day', 'Date', 'Week', 'Month', 'Reporting starts', 'Reporting ends'],
-  campaign: ['Campaign name', 'Campaign'],
-  clicks: ['Clicks (all)', 'Clicks', 'Link clicks'],
+  date: ['Day','Date','Week','Month','Reporting starts'],
+  campaign: ['Campaign name','Campaign'],
+  clicks: ['Clicks (all)','Clicks','Link clicks'],
   impressions: ['Impressions'],
-  ctr: ['CTR (all)', 'CTR (link click-through rate)', 'CTR'],
-  cpc: ['CPC (all)', 'CPC (cost per link click)', 'CPC'],
-  cost: ['Amount spent', 'Spend', 'Amount Spent (USD)'],
-  conversions: ['Results', 'Conversions', 'Website purchases'],
-  cpa: ['Cost per result', 'Cost per purchase'],
-  roas: ['Purchase ROAS', 'ROAS']
+  ctr: ['CTR (all)','CTR (link click-through rate)','CTR'],
+  cpc: ['CPC (all)','CPC (cost per link click)','CPC'],
+  cost: ['Amount spent','Spend','Amount Spent (USD)'],
+  conversions: ['Results','Conversions','Website purchases'],
+  cpa: ['Cost per result','Cost per purchase'],
+  roas: ['Purchase ROAS','ROAS'],
+  frequency: ['Frequency'],
+  reach: ['Reach']
 };
 
 const METRIC_LABELS = {
-  clicks: 'Clicks',
-  impressions: 'Impressions',
-  ctr: 'CTR',
-  cpc: 'CPC (Avg.)',
-  cost: 'Cost / Spend',
-  conversions: 'Conversions',
-  cpa: 'Cost per Conversion',
-  roas: 'ROAS'
+  clicks: 'Clicks', impressions: 'Impressions', ctr: 'CTR',
+  cpc: 'Avg. CPC', cost: 'Cost / Spend', conversions: 'Conversions',
+  cpa: 'Cost per Conversion', roas: 'ROAS', qualityScore: 'Quality Score',
+  searchImprShare: 'Search Impression Share', frequency: 'Frequency', reach: 'Reach'
 };
 
-// good direction: up = good for these metrics
-const GOOD_UP = ['clicks', 'impressions', 'ctr', 'conversions', 'roas'];
-const GOOD_DOWN = ['cpc', 'cost', 'cpa'];
+const GOOD_UP = new Set(['clicks','impressions','ctr','conversions','roas','qualityScore','searchImprShare','reach']);
+const GOOD_DOWN = new Set(['cpc','cpa','frequency']);
+
+// ─── DIAGNOSTIC KNOWLEDGE BASE ───────────────────────────────────────────────
+function getDiagnostics(metric, direction, platform, changePct) {
+  const up = direction === 'up';
+  const pct = Math.abs(changePct).toFixed(1) + '%';
+  const isGoogle = platform === 'google';
+
+  const db = {
+    ctr: {
+      up: {
+        hypotheses: ['Ad copy or creative was recently refreshed and is resonating better with the audience','Audience segmentation improved — ads are now reaching more relevant and intent-driven users','Competitor ads paused or reduced, giving your creative more attention in the auction','Seasonal demand spike aligning well with your ad messaging and keywords'],
+        actions: ['Check which specific ads or ad groups are driving the CTR lift and identify patterns','Scale the winning headlines and descriptions across other ad groups','Verify impression share — a CTR spike with fewer total impressions may be skewing the metric','Monitor Quality Score: an improving CTR should flow through to a better QS within days'],
+        context: ['A CTR increase means more users are finding your ad relevant enough to click — a strong positive signal','Confirm that conversion rate is holding up alongside CTR: clicks without conversions signal a post-click problem','If CTR rose but CPC also rose, you may be bidding into more competitive placements']
+      },
+      down: {
+        hypotheses: ['Ad fatigue — the same audience has seen your creative too many times','Ad copy has not been refreshed and is no longer competitive or compelling',isGoogle ? 'Keyword match types have broadened, pulling in less relevant impressions from wider searches' : 'Creative format no longer resonates — try different aspect ratios or video lengths','Competitors introduced new, more compelling ads that are absorbing clicks','Seasonal drop in intent — more people are searching or browsing but fewer are interested in your category'],
+        actions: ['Review ad-level CTR performance and pause the lowest performers immediately','Check impression share — if impressions grew while CTR fell, traffic quality has dropped',isGoogle ? 'Pull the Search Terms report and look for irrelevant queries inflating impressions' : 'Check frequency — high frequency (>3–4) is the leading cause of CTR drop on Meta','A/B test fresh headlines against your current top performers','Review average ad position or Auction Insights for competitor changes'],
+        context: [`CTR dropped ${pct} vs your baseline — for every 100 people who see your ad, fewer are clicking than before`,'A CTR drop without a corresponding CPC drop often means reduced ad relevance or a drop in ad rank','Counterintuitively: if conversions are stable despite lower CTR, traffic quality may have actually improved']
+      }
+    },
+    cpc: {
+      up: {
+        hypotheses: ['Increased competition — more advertisers are bidding on your key terms','Seasonal demand surge (Q4, holidays, events) driving up auction pressure',isGoogle ? 'Quality Score may have dropped, forcing you to pay more to maintain ad position' : 'Audience overlap — your campaigns may be competing against each other in the same auction','Bid strategy shifted to a more aggressive target (lower target CPA or higher target ROAS)','Match types broadened, entering more competitive and expensive keyword territory'],
+        actions: ['Run Auction Insights report to identify which new or existing competitors have become more aggressive','Check Quality Score across your top keywords — a 1-point drop can increase CPC by 15–20%',isGoogle ? 'Review bid strategy settings — ensure your target CPA or ROAS is realistic given current market conditions' : 'Check audience overlap and consolidate ad sets that are competing with each other','Identify your highest-CPC keywords and calculate whether they are still profitable at current rates','Add negative keywords to eliminate irrelevant, expensive traffic'],
+        context: [`CPC increased ${pct} — you are paying more per click than your recent average`,'A CPC increase is only a serious problem if it pushes your CPA above target or your ROAS below break-even','Calculate your break-even CPC: multiply your Conversion Rate by your Average Order Value to find the ceiling']
+      },
+      down: {
+        hypotheses: ['Reduced competition in your key auctions — competitors may have paused or reduced spend','Quality Score improved, lowering the cost required to maintain ad position','Bid strategy adjusted downward after consistently hitting performance targets','Seasonal lull reducing the number of advertisers actively bidding','Keyword mix shifted toward lower-competition, longer-tail terms'],
+        actions: ['Verify that conversions are stable — cheaper clicks with the same CVR means your CPA improved','Check whether impression share grew: lower CPC with more reach is a strong signal to scale budget','Confirm you are not losing ad rank to achieve this lower CPC — check average position or top-of-page rate','If ROAS improved alongside the CPC drop, this is an excellent time to increase budget'],
+        context: [`CPC decreased ${pct} — you are paying less per click than your baseline average, which is generally positive`,'Lower CPC with the same conversion rate directly means a lower CPA — verify in your CPA metric','Ensure volume has not dropped at the same time — fewer, cheaper clicks may still be a net revenue loss']
+      }
+    },
+    conversions: {
+      up: {
+        hypotheses: ['Improved landing page experience, page speed, or offer is converting visitors at a higher rate','Better traffic quality from refined targeting is bringing higher-intent users','Seasonal demand increase is bringing users who are more ready to convert','Remarketing or audience lists are maturing and finding better-fit users','Bid strategy is optimizing well after accumulating enough conversion signals'],
+        actions: ['Identify which campaigns and ad groups are driving the conversion lift','Check that conversion tracking is recording correctly — validate no double-counting with a test conversion','Verify the conversion event definition has not changed (e.g., a new conversion action was added)','Scale budget toward your top-converting campaigns while CPA and ROAS targets are being met'],
+        context: [`Conversions increased ${pct} — more users are completing your desired action, which directly impacts revenue`,'Determine whether this is a volume improvement (more clicks) or a rate improvement (better CVR)','Confirm conversion value aligns with actual revenue — especially important before scaling budgets significantly']
+      },
+      down: {
+        hypotheses: ['Landing page issue — slow load time, broken form, UX change, or checkout error is blocking completions','Traffic quality dropped — more irrelevant clicks are reaching the page but not converting','⚡ Conversion tracking broke — pixel not firing, tag removed, or attribution window changed','Offer weakened — price increased, stock ran out, or promotion ended','Audience saturation — remarketing lists are exhausted or overexposed',isGoogle ? 'Broad match pulling in low-intent queries that generate clicks without intent to convert' : 'Creative fatigue driving low-quality clicks from disengaged users'],
+        actions: ['🔴 Check conversion tracking immediately — verify the tag is firing on the thank-you or confirmation page','Test your landing page end-to-end: submit the form, complete a purchase, click every button','Review traffic quality signals: bounce rate, time on page, pages per session in Analytics',isGoogle ? 'Pull Search Terms report — look for irrelevant queries converting at zero' : 'Check placement and audience breakdown for segments with high clicks and zero conversions','Decompose the problem: did conversion rate drop, or did total clicks drop? Different root causes.','Check with your dev team: were there any website or tracking changes in this period?'],
+        context: [`Conversions dropped ${pct} — this directly impacts your pipeline and revenue`,'Always check tracking integrity first before making bid or budget changes — tag issues are extremely common','A conversion drop with stable CTR and click volume is almost always a post-click problem: landing page, offer, or tracking']
+      }
+    },
+    cost: {
+      up: {
+        hypotheses: ['Budget caps were raised or removed, allowing campaigns to spend more freely','Bid strategy is spending more aggressively to chase performance targets','CPC increased while click volume held, driving up total spend','New campaigns, ad groups, or ad sets were launched and are spending','Seasonal competition increasing auction costs across the board'],
+        actions: ['Verify that ROAS or CPA targets are still being met at the higher spend level','Review campaign budget settings — check for any accidental budget increases or duplications','Ensure spend is distributed as expected across campaigns and not concentrated in one area','If CPA is also rising alongside spend, efficiency has deteriorated and needs immediate attention'],
+        context: [`Spend increased ${pct} — verify it is generating proportional returns before treating this as a problem`,'Higher spend is completely fine if your ROAS is maintained or improved','If spend went up but conversions did not follow proportionally, your efficiency has dropped — investigate']
+      },
+      down: {
+        hypotheses: ['Budget caps are being hit earlier in the day, throttling afternoon and evening delivery','Low impression volume — targeting may be too narrow or audience too small','Bid strategy reducing bids due to poor conversion signals or overly conservative targets','Campaigns paused, ads disapproved, or billing issue limiting delivery'],
+        actions: ['Check for disapproved ads in the policy centre — this is a common hidden cause of spend drops','Review budget utilisation — are campaigns spending their full daily budget before the day ends?','Check Impression Share Lost to Budget in Google Ads','Verify ad scheduling is covering all intended hours of the day'],
+        context: [`Spend decreased ${pct} — this could indicate under-delivery, intentional budget cuts, or an account issue`,'Lower spend with the same conversion rate equals better efficiency — not always a problem','Lower spend with proportionally fewer conversions indicates a delivery issue worth investigating urgently']
+      }
+    },
+    cpa: {
+      up: {
+        hypotheses: ['Traffic quality declined — more clicks but fewer converting, driving up cost per acquisition','CPC rose while conversion rate held flat, mathematically increasing CPA','Conversion rate dropped due to a landing page, offer, or audience issue','Bid strategy chasing harder-to-convert segments or new placements','Increased competition for the same high-converting audience segments'],
+        actions: ['First check if CPA is still within your acceptable target range — if so, monitor before acting','Decompose: CPA = CPC ÷ Conversion Rate — determine which variable changed','Review landing page performance and conversion funnel drop-off points','Tighten audience targeting toward your highest-converting segments','Adjust bid strategy targets if CPA is consistently and significantly above your goal'],
+        context: [`CPA increased ${pct} — each conversion is now costing you more than your baseline`,'CPA is the product of CPC and CVR: identify which one changed first to find the root cause','Compare your current CPA against your target CPA and your break-even CPA to assess urgency']
+      },
+      down: {
+        hypotheses: ['Conversion rate improved — better landing page, stronger offer, or higher-intent audience','CPC decreased while conversion rate held, directly reducing cost per acquisition','Audience targeting refinements are attracting higher-quality, more convertible traffic','Bid strategy found more efficient paths to conversion through optimisation'],
+        actions: ['Identify which specific campaigns and ad groups are driving the CPA improvement','Scale budget toward your best-performing campaigns while efficiency is strong','Document what changed — creative, audience, bid strategy — so you can replicate it elsewhere','Verify conversion tracking is accurate before making significant budget increases'],
+        context: [`CPA decreased ${pct} — each conversion is now costing you less, which improves profitability`,'Lower CPA is a green light to consider scaling budget — you are getting more conversions per dollar','Confirm the improvement is consistent across multiple periods before making major budget moves']
+      }
+    },
+    impressions: {
+      up: {
+        hypotheses: ['Budget increased or daily caps lifted, allowing more ad delivery',isGoogle ? 'Broader match types or new keywords added, expanding the query pool' : 'Audience expanded or new placements enabled, reaching more users','Auction competition decreased, giving your ads a larger share of available impressions','Seasonal search or browsing volume increase in your category'],
+        actions: ['Check whether CTR held — more impressions with falling CTR may signal lower-quality traffic entering the mix','Verify the impression growth is occurring in relevant placements, queries, or audience segments',isGoogle ? 'Review the Search Terms report for new irrelevant queries' : 'Check placement and audience breakdown for new, potentially low-quality inventory'],
+        context: [`Impressions grew ${pct} — your ads are reaching more people than your baseline average`,'More impressions is only valuable if CTR and conversion rate are maintained at the same time','Watch for impression growth without corresponding click or conversion growth — this is a quality warning sign']
+      },
+      down: {
+        hypotheses: ['Budget exhausted early in the day, limiting delivery in key hours',isGoogle ? 'Low Quality Score or ad relevance reducing eligibility to show' : 'Audience fatigue or audience size too small relative to your budget','Competitors outbidding you for key placements, reducing your impression share','Seasonal search volume decline in your category','Negative keywords applied too aggressively, restricting reach'],
+        actions: ['Check Impression Share Lost to Budget vs Lost to Ad Rank — different root causes, different fixes','Check budget pacing — are you running out of daily budget before the day ends?',isGoogle ? 'Review Quality Score and Ad Relevance scores across key keywords' : 'Check audience size and consider expanding with lookalikes','Look for disapproved ads or policy violations limiting delivery'],
+        context: [`Impressions dropped ${pct} — your ads are reaching fewer people than your baseline`,'Lower impressions means reduced brand visibility and less opportunity to generate clicks and conversions','If clicks dropped proportionally alongside impressions, the issue is in delivery/eligibility, not CTR']
+      }
+    },
+    roas: {
+      up: {
+        hypotheses: ['Higher-quality traffic is converting at a better rate or spending more per order','Average order value increased due to seasonal buying behaviour or improved product mix','CPC decreased while revenue per conversion held, improving the spend-to-revenue ratio','Audience targeting improvements are attracting higher-LTV customers'],
+        actions: ['Identify which campaigns or product groups are driving the ROAS improvement','Scale budget toward best-ROAS campaigns while performance holds','Document the changes that drove this improvement — creative, audience, bid strategy','Verify revenue tracking is accurate — confirm no double-counting of conversions'],
+        context: [`ROAS increased ${pct} — you are generating more revenue per dollar of ad spend`,'This is typically a strong signal to scale budget and capture more volume','Confirm the ROAS improvement is consistent across multiple periods before making major budget commitments']
+      },
+      down: {
+        hypotheses: ['Revenue per conversion dropped — lower average order value or fewer items per cart','Conversion rate declined while CPC held or increased','Traffic quality shifted toward lower-value customers or products','Conversion tracking may be under-reporting revenue due to a tag or attribution issue'],
+        actions: ['⚡ Verify revenue and conversion value tracking is firing correctly — check tag on order confirmation page','Review average order value vs your baseline to isolate whether AOV or CVR changed','Identify which campaigns are dragging ROAS below target','Check product mix — are lower-margin products getting disproportionate ad spend?','Tighten audience targeting toward segments with higher historical lifetime value'],
+        context: [`ROAS dropped ${pct} — you are getting less revenue per dollar of ad spend`,'ROAS = Revenue ÷ Ad Spend: decompose whether revenue fell, spend increased, or both','A ROAS drop below your break-even threshold requires immediate intervention to prevent loss-making spend']
+      }
+    },
+    clicks: {
+      up: {
+        hypotheses: ['CTR improved due to better ad creative or stronger keyword-to-ad alignment','Impression volume grew from budget increases or broader targeting','Seasonal demand spike driving more search and browsing activity','Competitor ads paused, giving your ads a larger share of the clicks'],
+        actions: ['Check whether conversion rate held — more clicks without more conversions indicates a traffic quality issue','Verify CPC is within an acceptable range despite the volume increase','Identify the top-performing ads and keywords driving the click lift'],
+        context: [`Clicks increased ${pct} — more users are engaging with your ads`,'Higher click volume is positive if conversion rate and CPA remain healthy','If cost grew proportionally but conversions did not, efficiency has declined despite the click growth']
+      },
+      down: {
+        hypotheses: ['Impression volume dropped, reducing total click opportunity','CTR declined — ads are less relevant or compelling to the current audience','Budget constraints are limiting delivery and cutting available click volume','Competitor activity increased, absorbing clicks that previously went to your ads'],
+        actions: ['Separate impression vs CTR impact — which dropped first? Different root causes.','Check budget pacing — are you running out of daily budget mid-day?','Review ad copy and test new headline variations','Check Auction Insights for signs of increased competitor activity'],
+        context: [`Clicks dropped ${pct} — fewer users are reaching your site from ads`,'Fewer clicks means a smaller pipeline — monitor downstream conversion volume closely','Clicks × Conversion Rate = Conversions: a click volume drop directly threatens your conversion numbers']
+      }
+    },
+    frequency: {
+      up: {
+        hypotheses: ['Audience size is too small relative to your current budget level','Campaign has been running too long without creative rotation or refresh','Retargeting audience is being overserved with the same ads repeatedly','Frequency caps not configured or set too high at the ad set level'],
+        actions: ['Rotate or refresh your creative immediately if weekly frequency exceeds 3–4','Expand your audience with lookalikes or interest expansions to dilute delivery per person','Set frequency caps at the ad set level in Meta Ads Manager','Monitor CTR and CPM alongside frequency — both typically worsen as frequency rises'],
+        context: [`Frequency increased ${pct} — your audience is seeing your ads more often per person`,'High frequency (above 3–5 weekly) consistently correlates with ad fatigue, falling CTR, and rising CPMs on Meta','This is one of the clearest and earliest warning signs of performance deterioration on Meta Ads']
+      },
+      down: {
+        hypotheses: ['Audience size expanded, diluting how often each person sees your ads','Budget reduced relative to audience size, lowering delivery density','New placements added are distributing impressions more broadly across more people'],
+        actions: ['Check whether reach grew alongside the frequency drop — expanding reach is positive','Ensure your audience is still the right size for your budget (rule of thumb: budget ÷ CPM × 1000 ÷ frequency cap)','Monitor engagement rates — lower frequency should correlate with less fatigue and better CTR'],
+        context: [`Frequency dropped ${pct} — each person in your audience sees your ads less often`,'Lower frequency is generally positive as it reduces creative fatigue and can improve CTR','If frequency drops too low, your brand may not achieve enough recall frequency to drive consideration']
+      }
+    },
+    qualityScore: {
+      up: {
+        hypotheses: ['Ad copy improvements better match keyword intent, improving Ad Relevance score','Landing page experience score improved — faster load, better content alignment, clearer CTA','Expected CTR component improved through higher-performing ad variations','Negative keyword additions cleaned up irrelevant queries that were hurting CTR signals'],
+        actions: ['Identify which keywords improved and replicate the keyword-to-ad structure approach elsewhere','Check if CPC has decreased as a result — Quality Score has a direct and significant impact on auction costs','Continue testing ad copy to keyword theme alignment to push QS further'],
+        context: [`Quality Score increased ${pct} — Google considers your ads more relevant to users and their search queries`,'Higher QS means lower CPC and better ad positions for the same bid amount — a compounding advantage','QS is one of the highest-leverage improvements in Google Ads: a 2-point increase can reduce CPC by 30%+']
+      },
+      down: {
+        hypotheses: ['Ad copy is no longer aligned with keyword search intent — users expect different answers','Landing page experience degraded: slower load speed, poor mobile experience, or mismatched content','Low Expected CTR from ads that consistently under-perform vs the auction average','Keyword match types too broad, attracting irrelevant queries that hurt CTR signals to Google'],
+        actions: ['Check the three QS sub-components individually: Expected CTR, Ad Relevance, and Landing Page Experience','Test landing page speed with Google PageSpeed Insights and address any failing Core Web Vitals','Rewrite ad copy to more precisely reflect the keyword theme and user intent','Pause low-QS keywords and restructure into tighter, more specific ad groups with dedicated copy'],
+        context: [`Quality Score dropped ${pct} — Google considers your ads less relevant, which directly increases costs`,'A 1-point QS drop can increase your effective CPC by 15–25% for the same ad position','QS issues compound over time — the longer you wait, the more you pay. Address this quickly.']
+      }
+    }
+  };
+
+  const entry = db[metric];
+  if (!entry) {
+    return {
+      hypotheses: ['Metric deviation detected — review campaign settings and any recent account changes','Check whether any external factors (seasonality, competitor activity) could explain the shift'],
+      actions: ['Compare current period data manually against previous periods in your ads platform','Check for any account-level changes: budget, targeting, creative, or bid strategy modifications'],
+      context: [`This metric changed by ${pct} vs your baseline average — investigate the context before acting`]
+    };
+  }
+  return entry[up ? 'up' : 'down'];
+}
+
+// ─── CROSS-METRIC CORRELATIONS ────────────────────────────────────────────────
+function detectCorrelations(results) {
+  const get = m => results.find(r => r.metric === m);
+  const isAnomaly = r => r && (r.status === 'critical' || r.status === 'warning');
+  const correlations = [];
+
+  const ctr = get('ctr'), cpc = get('cpc'), conv = get('conversions');
+  const cpa = get('cpa'), roas = get('roas'), clicks = get('clicks');
+  const impressions = get('impressions'), freq = get('frequency'), qs = get('qualityScore');
+
+  if (isAnomaly(ctr) && ctr.changePct < 0 && isAnomaly(cpc) && cpc.changePct > 0) {
+    correlations.push({ headline: '⚠️ Quality Score Pressure: CTR ↓ + CPC ↑', detail: 'When CTR drops at the same time CPC rises, this is a classic Quality Score warning pattern. Google rewards high CTR with lower CPCs — a falling CTR signals reduced relevance to Google, which forces you to pay more to maintain position. Check keyword-to-ad alignment and landing page experience immediately.' });
+  }
+
+  if (isAnomaly(ctr) && ctr.changePct < 0 && impressions && impressions.changePct >= -5) {
+    correlations.push({ headline: '😴 Ad Fatigue Pattern: Impressions Stable but CTR Falling', detail: 'Your ads are being shown at least as often, but fewer people are clicking. This is the classic ad fatigue pattern — your audience has seen the same creative enough times to stop engaging. Refresh ad copy, rotate creatives, and check frequency if running on Meta.' });
+  }
+
+  if (isAnomaly(conv) && conv.changePct < 0 && clicks && Math.abs(clicks.changePct) < 10) {
+    correlations.push({ headline: '🔧 Likely Tracking or Post-Click Issue: Clicks Stable, Conversions Down', detail: 'Your ad traffic volume is holding, but conversions dropped significantly. This strongly suggests either a conversion tracking failure (pixel not firing, tag removed) or a post-click problem (broken landing page, form error, slow load). Check your conversion tag before making any bid or budget changes.' });
+  }
+
+  if (isAnomaly(cpa) && cpa.changePct > 0 && isAnomaly(cpc) && cpc.changePct > 0) {
+    correlations.push({ headline: '💸 CPA Rising Due to Auction Pressure: CPC ↑ + CPA ↑', detail: 'Your cost per acquisition is up, and the likely culprit is rising CPCs rather than a conversion rate problem. Your funnel may be intact — the auction is just more expensive. Check Auction Insights for new competitor activity and review your bid strategy targets against current market conditions.' });
+  }
+
+  if (roas && roas.changePct > 0 && cpc && cpc.changePct < 0) {
+    correlations.push({ headline: '🚀 Peak Efficiency Signal: CPC ↓ + ROAS ↑', detail: 'You are paying less per click AND generating more revenue per dollar spent simultaneously. This is an ideal performance pattern and a clear signal to scale. Consider increasing budget now to capture more volume while efficiency is at its highest.' });
+  }
+
+  if (freq && isAnomaly(freq) && freq.changePct > 0 && ctr && ctr.changePct < 0) {
+    correlations.push({ headline: '📉 Meta Creative Fatigue Confirmed: Frequency ↑ + CTR ↓', detail: 'Rising frequency combined with falling CTR is the clearest signal of creative exhaustion on Meta Ads. Your audience is being overserved the same ads and has stopped engaging. Rotate or refresh creatives immediately, expand your audience, and set frequency caps at the ad set level.' });
+  }
+
+  if (impressions && isAnomaly(impressions) && impressions.changePct < 0 && clicks && clicks.changePct < 0) {
+    const ratio = clicks.changePct / impressions.changePct;
+    if (ratio > 0.6 && ratio < 1.4) {
+      correlations.push({ headline: '📉 Delivery Problem: Impressions and Clicks Both Dropping Together', detail: 'Clicks are falling roughly in proportion to impressions, which means CTR has held but reach has collapsed. The issue is upstream in delivery — not in ad relevance. Check: budget exhaustion, disapproved ads, Quality Score drops, audience eligibility issues, or lost impression share to competitors.' });
+    }
+  }
+
+  return correlations;
+}
 
 // ─── UI HELPERS ──────────────────────────────────────────────────────────────
 function selectPlatform(p) {
   state.platform = p;
   document.getElementById('btn-google').classList.toggle('selected', p === 'google');
   document.getElementById('btn-meta').classList.toggle('selected', p === 'meta');
-  document.getElementById('uploadHint').textContent =
-    p === 'google'
-      ? 'Google Ads → Reports → Schedule → Download CSV'
-      : 'Meta Ads Manager → Export → Export Table Data (CSV)';
+  document.getElementById('uploadHint').textContent = p === 'google'
+    ? 'Google Ads → Reports → Schedule → Download CSV'
+    : 'Meta Ads Manager → Export → Export Table Data (CSV)';
   checkReady();
 }
 
 function selectPeriod(p) {
   state.period = p;
-  ['daily','weekly','monthly'].forEach(x =>
-    document.getElementById('period-' + x).classList.toggle('selected', x === p)
-  );
+  ['daily','weekly','monthly'].forEach(x => document.getElementById('period-' + x).classList.toggle('selected', x === p));
 }
 
 function checkReady() {
@@ -806,33 +563,21 @@ function checkReady() {
 
 function handleDrag(e) { e.preventDefault(); document.getElementById('uploadArea').classList.add('dragover'); }
 function handleDragLeave() { document.getElementById('uploadArea').classList.remove('dragover'); }
-function handleDrop(e) {
-  e.preventDefault();
-  document.getElementById('uploadArea').classList.remove('dragover');
-  const file = e.dataTransfer.files[0];
-  if (file) handleFile(file);
-}
+function handleDrop(e) { e.preventDefault(); document.getElementById('uploadArea').classList.remove('dragover'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); }
 
-// ─── CSV PARSING ─────────────────────────────────────────────────────────────
 function handleFile(file) {
-  if (!file || !file.name.endsWith('.csv')) {
-    showError('Please upload a valid .csv file.');
-    return;
-  }
+  if (!file || !file.name.endsWith('.csv')) { showError('Please upload a valid .csv file.'); return; }
   const reader = new FileReader();
   reader.onload = e => {
     try {
       const { headers, rows } = parseCSV(e.target.result);
-      state.headers = headers;
-      state.rawData = rows;
+      state.headers = headers; state.rawData = rows;
       document.getElementById('fileInfo').style.display = 'flex';
       document.getElementById('fileName').textContent = file.name;
-      document.getElementById('fileRows').textContent = `(${rows.length} rows detected)`;
+      document.getElementById('fileRows').textContent = `(${rows.length} rows)`;
       document.getElementById('errorBox').style.display = 'none';
       checkReady();
-    } catch (err) {
-      showError('Could not parse CSV: ' + err.message);
-    }
+    } catch(err) { showError('Could not parse CSV: ' + err.message); }
   };
   reader.readAsText(file);
 }
@@ -840,307 +585,197 @@ function handleFile(file) {
 function parseCSV(text) {
   const lines = text.split(/\r?\n/).filter(l => l.trim());
   if (lines.length < 2) throw new Error('File has no data rows.');
-
-  // Find header row (skip summary/report title rows from Google Ads)
-  let headerIdx = 0;
-  for (let i = 0; i < Math.min(5, lines.length); i++) {
-    const cols = splitCSVLine(lines[i]);
-    if (cols.length > 3) { headerIdx = i; break; }
-  }
-
-  const headers = splitCSVLine(lines[headerIdx]).map(h => h.replace(/^"|"$/g, '').trim());
+  let hi = 0;
+  for (let i = 0; i < Math.min(5, lines.length); i++) { if (splitCSVLine(lines[i]).length > 3) { hi = i; break; } }
+  const headers = splitCSVLine(lines[hi]).map(h => h.replace(/^"|"$/g, '').trim());
   const rows = [];
-  for (let i = headerIdx + 1; i < lines.length; i++) {
+  for (let i = hi + 1; i < lines.length; i++) {
     const vals = splitCSVLine(lines[i]);
     if (vals.length < 2) continue;
     const row = {};
-    headers.forEach((h, idx) => {
-      row[h] = (vals[idx] || '').replace(/^"|"$/g, '').trim();
-    });
+    headers.forEach((h, idx) => { row[h] = (vals[idx] || '').replace(/^"|"$/g, '').trim(); });
     rows.push(row);
   }
   return { headers, rows };
 }
 
 function splitCSVLine(line) {
-  const result = [];
-  let current = '';
-  let inQuotes = false;
+  const r = []; let cur = ''; let q = false;
   for (let i = 0; i < line.length; i++) {
-    if (line[i] === '"') { inQuotes = !inQuotes; }
-    else if (line[i] === ',' && !inQuotes) { result.push(current); current = ''; }
-    else { current += line[i]; }
+    if (line[i] === '"') { q = !q; }
+    else if (line[i] === ',' && !q) { r.push(cur); cur = ''; }
+    else { cur += line[i]; }
   }
-  result.push(current);
-  return result;
+  r.push(cur); return r;
 }
 
-// ─── COLUMN FINDER ───────────────────────────────────────────────────────────
 function findCol(headers, candidates) {
-  for (const c of candidates) {
-    const found = headers.find(h => h.toLowerCase() === c.toLowerCase());
-    if (found) return found;
-  }
-  // fuzzy: partial match
-  for (const c of candidates) {
-    const found = headers.find(h => h.toLowerCase().includes(c.toLowerCase()));
-    if (found) return found;
-  }
+  for (const c of candidates) { const f = headers.find(h => h.toLowerCase() === c.toLowerCase()); if (f) return f; }
+  for (const c of candidates) { const f = headers.find(h => h.toLowerCase().includes(c.toLowerCase())); if (f) return f; }
   return null;
 }
 
 function parseNum(str) {
-  if (!str || str === '--' || str === '-') return null;
-  return parseFloat(str.replace(/[%,$,€,£,\s]/g, '').replace(',', '.')) || null;
+  if (!str || str === '--' || str === '-' || str === '') return null;
+  return parseFloat(str.replace(/[%,$€£\s]/g, '').replace(',', '.')) || null;
 }
 
 // ─── ANALYSIS ────────────────────────────────────────────────────────────────
 function runAnalysis() {
   const colMap = state.platform === 'google' ? GOOGLE_COLS : META_COLS;
-  const headers = state.headers;
-  const rows = state.rawData;
-
+  const { headers, rawData: rows } = state;
   const threshCritical = parseFloat(document.getElementById('threshCritical').value) || 30;
   const threshWarning = parseFloat(document.getElementById('threshWarning').value) || 15;
   const baselinePeriods = parseInt(document.getElementById('baselinePeriods').value) || 3;
 
-  // Find columns
   const dateCol = findCol(headers, colMap.date);
   const campaignCol = findCol(headers, colMap.campaign);
+  if (!dateCol) { showError('Could not find a Date column. Make sure your CSV export includes a date breakdown.'); return; }
 
   const metricCols = {};
-  Object.keys(colMap).forEach(k => {
-    if (k === 'date' || k === 'campaign') return;
-    const col = findCol(headers, colMap[k]);
-    if (col) metricCols[k] = col;
-  });
+  Object.keys(colMap).forEach(k => { if (k === 'date' || k === 'campaign') return; const c = findCol(headers, colMap[k]); if (c) metricCols[k] = c; });
+  if (!Object.keys(metricCols).length) { showError('No recognisable metric columns found. Check your CSV export settings.'); return; }
 
-  if (!dateCol) {
-    showError('Could not find a Date column. Make sure your CSV export includes a date breakdown.');
-    return;
-  }
-
-  if (Object.keys(metricCols).length === 0) {
-    showError('Could not find any recognizable metric columns (Clicks, Impressions, CTR, CPC, Cost, Conversions). Please check your CSV export settings.');
-    return;
-  }
-
-  // Group rows by campaign (or "All" if no campaign col)
   const campaigns = {};
-  rows.forEach(row => {
-    const campaign = campaignCol ? (row[campaignCol] || 'All') : 'All';
-    if (!campaigns[campaign]) campaigns[campaign] = [];
-    campaigns[campaign].push(row);
-  });
+  rows.forEach(row => { const c = campaignCol ? (row[campaignCol] || 'All') : 'All'; if (!campaigns[c]) campaigns[c] = []; campaigns[c].push(row); });
 
-  // For each campaign, sort by date, then compute anomalies
   const results = [];
-
   Object.entries(campaigns).forEach(([campaign, campRows]) => {
-    // Sort rows by date (best effort)
-    campRows.sort((a, b) => {
-      const da = new Date(a[dateCol]);
-      const db = new Date(b[dateCol]);
-      return da - db;
-    });
-
+    campRows.sort((a, b) => new Date(a[dateCol]) - new Date(b[dateCol]));
     const n = campRows.length;
     if (n < 2) return;
-
     const latest = campRows[n - 1];
-
     Object.entries(metricCols).forEach(([metric, col]) => {
       const latestVal = parseNum(latest[col]);
       if (latestVal === null) return;
-
-      // baseline: average of previous N periods
       const baseStart = Math.max(0, n - 1 - baselinePeriods);
-      const baseRows = campRows.slice(baseStart, n - 1);
-      const baseVals = baseRows.map(r => parseNum(r[col])).filter(v => v !== null);
-      if (baseVals.length === 0) return;
-
+      const baseVals = campRows.slice(baseStart, n - 1).map(r => parseNum(r[col])).filter(v => v !== null);
+      if (!baseVals.length) return;
       const avg = baseVals.reduce((a, b) => a + b, 0) / baseVals.length;
       if (avg === 0) return;
-
       const changePct = ((latestVal - avg) / Math.abs(avg)) * 100;
       const absChange = Math.abs(changePct);
-
       let status = 'normal';
       if (absChange >= threshCritical) status = 'critical';
       else if (absChange >= threshWarning) status = 'warning';
-
-      results.push({
-        campaign,
-        metric,
-        col,
-        latestVal,
-        avg,
-        changePct,
-        absChange,
-        status,
-        latestDate: latest[dateCol] || ''
-      });
+      results.push({ campaign, metric, latestVal, avg, changePct, absChange, status, latestDate: latest[dateCol] || '' });
     });
   });
 
   state.analysisResults = results;
 
-  // Populate campaign filter
-  const campaignFilter = document.getElementById('campaignFilter');
-  campaignFilter.innerHTML = '<option value="all">All Campaigns</option>';
-  Object.keys(campaigns).forEach(c => {
-    const opt = document.createElement('option');
-    opt.value = c; opt.textContent = c;
-    campaignFilter.appendChild(opt);
-  });
+  const cf = document.getElementById('campaignFilter');
+  cf.innerHTML = '<option value="all">All Campaigns</option>';
+  Object.keys(campaigns).forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; cf.appendChild(o); });
 
-  // Show results
+  const corr = detectCorrelations(results);
+  const corrPanel = document.getElementById('correlationPanel');
+  document.getElementById('correlationList').innerHTML = corr.map(c => `<div class="correlation-item"><div class="correlation-headline">${c.headline}</div><div class="correlation-detail">${c.detail}</div></div>`).join('');
+  corrPanel.style.display = corr.length ? 'block' : 'none';
+
   document.getElementById('resultsSection').style.display = 'block';
   document.getElementById('resultsSection').classList.add('fade-in');
-  document.getElementById('resultsTitle').textContent =
-    `${state.platform === 'google' ? 'Google Ads' : 'Meta Ads'} · ${state.period.charAt(0).toUpperCase() + state.period.slice(1)} Analysis · ${results.length} metric checks`;
+  document.getElementById('resultsTitle').textContent = `${state.platform === 'google' ? 'Google Ads' : 'Meta Ads'} · ${state.period} · ${results.length} metric checks`;
 
   renderSummary(results);
   renderTable();
-  renderInsights(results);
-
   document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
 }
 
 function renderSummary(results) {
-  const critical = results.filter(r => r.status === 'critical').length;
-  const warning = results.filter(r => r.status === 'warning').length;
-  const normal = results.filter(r => r.status === 'normal').length;
-
+  const c = results.filter(r => r.status === 'critical').length;
+  const w = results.filter(r => r.status === 'warning').length;
+  const n = results.filter(r => r.status === 'normal').length;
   document.getElementById('summaryPills').innerHTML = `
-    <div class="pill pill-red">
-      <div class="pill-count">${critical}</div>
-      <div>Critical Anomalies</div>
-    </div>
-    <div class="pill pill-yellow">
-      <div class="pill-count">${warning}</div>
-      <div>Warnings</div>
-    </div>
-    <div class="pill pill-green">
-      <div class="pill-count">${normal}</div>
-      <div>Normal Metrics</div>
-    </div>
-  `;
+    <div class="pill pill-red"><div class="pill-count">${c}</div><div>Critical</div></div>
+    <div class="pill pill-yellow"><div class="pill-count">${w}</div><div>Warnings</div></div>
+    <div class="pill pill-green"><div class="pill-count">${n}</div><div>Normal</div></div>`;
 }
 
 function renderTable() {
-  const statusFilter = document.getElementById('statusFilter').value;
-  const campaignFilter = document.getElementById('campaignFilter').value;
-
+  const sf = document.getElementById('statusFilter').value;
+  const cf = document.getElementById('campaignFilter').value;
   let filtered = state.analysisResults;
-  if (statusFilter !== 'all') filtered = filtered.filter(r => r.status === statusFilter);
-  if (campaignFilter !== 'all') filtered = filtered.filter(r => r.campaign === campaignFilter);
-
-  // Sort: critical first, then warning, then normal; within group by absChange desc
-  filtered.sort((a, b) => {
-    const order = { critical: 0, warning: 1, normal: 2 };
-    if (order[a.status] !== order[b.status]) return order[a.status] - order[b.status];
-    return b.absChange - a.absChange;
-  });
+  if (sf !== 'all') filtered = filtered.filter(r => r.status === sf);
+  if (cf !== 'all') filtered = filtered.filter(r => r.campaign === cf);
+  const order = { critical: 0, warning: 1, normal: 2 };
+  filtered.sort((a, b) => order[a.status] !== order[b.status] ? order[a.status] - order[b.status] : b.absChange - a.absChange);
 
   const grid = document.getElementById('anomalyGrid');
-  if (filtered.length === 0) {
-    grid.innerHTML = '<div class="empty-state">No results match the current filters.</div>';
-    return;
-  }
+  if (!filtered.length) { grid.innerHTML = '<div class="empty-state">No results match the current filters.</div>'; return; }
 
-  grid.innerHTML = filtered.map(r => {
-    const isUp = r.changePct > 0;
-    const goodUp = GOOD_UP.includes(r.metric);
-    const changeClass = isUp
-      ? (goodUp ? 'change-up good' : 'change-up')
-      : (goodUp ? 'change-down bad' : 'change-down');
+  const multiCamp = [...new Set(state.analysisResults.map(r => r.campaign))].length > 1;
 
-    const sign = isUp ? '+' : '';
-    const arrow = isUp ? '▲' : '▼';
+  grid.innerHTML = filtered.map((r, i) => {
+    const up = r.changePct > 0;
+    const isGood = up ? GOOD_UP.has(r.metric) : GOOD_DOWN.has(r.metric);
+    const changeClass = r.status === 'normal' ? 'change-neutral' : (isGood ? 'change-good' : 'change-bad');
+    const sign = up ? '+' : '';
+    const arrow = up ? '▲' : '▼';
 
-    const statusClass = { critical: 'status-critical', warning: 'status-warning', normal: 'status-normal' }[r.status];
-    const rowClass = r.status;
-
-    const fmt = (v) => {
+    const fmt = v => {
       if (r.metric === 'ctr') return v.toFixed(2) + '%';
-      if (r.metric === 'cpc' || r.metric === 'cost' || r.metric === 'cpa') return '$' + v.toFixed(2);
+      if (['cpc','cost','cpa'].includes(r.metric)) return '$' + v.toFixed(2);
       if (r.metric === 'roas') return v.toFixed(2) + 'x';
+      if (['qualityScore','frequency'].includes(r.metric)) return v.toFixed(2);
       return Math.round(v).toLocaleString();
     };
 
-    const campaigns = state.analysisResults.map(x => x.campaign);
-    const showCampaign = [...new Set(campaigns)].length > 1;
+    const scClass = { critical: 'status-critical', warning: 'status-warning', normal: 'status-normal' }[r.status];
+    const scEmoji = { critical: '🔴', warning: '🟡', normal: '🟢' }[r.status];
+
+    const diag = getDiagnostics(r.metric, up ? 'up' : 'down', state.platform, r.changePct);
+
+    const mkList = (items, icon) => items.map(item => `<li><span class="why-icon">${icon}</span>${item}</li>`).join('');
 
     return `
-      <div class="anomaly-row ${rowClass}">
-        <div>
+      <div class="anomaly-row ${r.status}" onclick="toggleRow(${i})" id="arow-${i}">
+        <div class="anomaly-main">
           <div class="anomaly-metric">${METRIC_LABELS[r.metric] || r.metric}</div>
-          ${showCampaign ? `<div class="anomaly-meta">${r.campaign}</div>` : ''}
+          ${multiCamp ? `<div class="anomaly-meta">${r.campaign}</div>` : ''}
           ${r.latestDate ? `<div class="anomaly-meta">${r.latestDate}</div>` : ''}
         </div>
         <div class="anomaly-val">${fmt(r.latestVal)}</div>
         <div class="anomaly-avg">${fmt(r.avg)}</div>
         <div class="anomaly-change ${changeClass}">${arrow} ${sign}${r.changePct.toFixed(1)}%</div>
-        <div style="text-align:center">
-          <span class="status-badge ${statusClass}">
-            ${{ critical: '🔴', warning: '🟡', normal: '🟢' }[r.status]}
-            ${r.status.toUpperCase()}
-          </span>
-        </div>
+        <div style="text-align:center; padding: 0 4px;"><span class="status-badge ${scClass}">${scEmoji} ${r.status.toUpperCase()}</span></div>
+        <div class="expand-icon">▾</div>
       </div>
-    `;
+      <div class="why-panel" id="awhy-${i}">
+        <div class="why-block hypotheses">
+          <div class="why-block-title">🔍 Possible Causes</div>
+          <ul class="why-list">${mkList(diag.hypotheses, '?')}</ul>
+        </div>
+        <div class="why-block actions">
+          <div class="why-block-title">⚡ What To Do Next</div>
+          <ul class="why-list">${mkList(diag.actions, '→')}</ul>
+        </div>
+        <div class="why-block context">
+          <div class="why-block-title">📖 What This Means</div>
+          <ul class="why-list">${mkList(diag.context, '✓')}</ul>
+        </div>
+      </div>`;
   }).join('');
 }
 
-function renderInsights(results) {
-  const critical = results.filter(r => r.status === 'critical');
-  const insights = [];
-
-  if (critical.length === 0) {
-    insights.push('No critical anomalies detected. All key metrics are within normal range.');
-  }
-
-  critical.forEach(r => {
-    const dir = r.changePct > 0 ? 'increased' : 'decreased';
-    const pct = Math.abs(r.changePct).toFixed(1);
-    const label = METRIC_LABELS[r.metric] || r.metric;
-    const camp = r.campaign !== 'All' ? ` in campaign "${r.campaign}"` : '';
-    insights.push(`${label}${camp} has ${dir} by ${pct}% vs baseline — investigate immediately.`);
-  });
-
-  if (results.filter(r => r.status === 'warning').length > 0) {
-    insights.push(`${results.filter(r => r.status === 'warning').length} metric(s) show moderate changes worth monitoring.`);
-  }
-
-  // Specific patterns
-  const cpcAnomaly = critical.find(r => r.metric === 'cpc');
-  const convAnomaly = critical.find(r => r.metric === 'conversions');
-  if (cpcAnomaly && cpcAnomaly.changePct > 0 && convAnomaly && convAnomaly.changePct < 0) {
-    insights.push('CPC rising while Conversions falling — possible audience saturation or landing page issue.');
-  }
-
-  const ctrAnomaly = critical.find(r => r.metric === 'ctr');
-  if (ctrAnomaly && ctrAnomaly.changePct < 0) {
-    insights.push('CTR drop detected — check if ad copy or creative has changed recently, or if ad fatigue is a factor.');
-  }
-
-  document.getElementById('insightList').innerHTML = insights.map(i => `<li>${i}</li>`).join('');
+function toggleRow(i) {
+  const row = document.getElementById('arow-' + i);
+  const panel = document.getElementById('awhy-' + i);
+  const open = panel.classList.contains('open');
+  panel.classList.toggle('open', !open);
+  row.classList.toggle('open', !open);
 }
 
 function showError(msg) {
-  const box = document.getElementById('errorBox');
-  box.textContent = '⚠ ' + msg;
-  box.style.display = 'block';
+  const b = document.getElementById('errorBox');
+  b.textContent = '⚠ ' + msg;
+  b.style.display = 'block';
 }
 
 function resetAll() {
-  state.rawData = [];
-  state.headers = [];
-  state.analysisResults = [];
+  state.rawData = []; state.headers = []; state.analysisResults = [];
   document.getElementById('resultsSection').style.display = 'none';
   document.getElementById('fileInfo').style.display = 'none';
-  document.getElementById('fileName').textContent = '—';
   document.getElementById('fileInput').value = '';
   document.getElementById('errorBox').style.display = 'none';
   document.getElementById('analyzeBtn').disabled = true;
