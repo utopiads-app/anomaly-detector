@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PPC Anomaly Detector</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface2: #1c1c28;
+    --border: #2a2a3d;
+    --accent: #00e5ff;
+    --accent2: #ff4d6d;
+    --accent3: #a8ff3e;
+    --warn: #ffb300;
+    --text: #e8e8f0;
+    --muted: #6b6b8a;
+    --red: #ff4d6d;
+    --yellow: #ffb300;
+    --green: #a8ff3e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .logo-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .logo-sub {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 40px;
+  }
+
+  /* STEP CARD */
+  .step-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+    transition: border-color 0.2s;
+  }
+
+  .step-card.active {
+    border-color: var(--accent);
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .step-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    background: rgba(0,229,255,0.08);
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 6px;
+    padding: 4px 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .step-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* PLATFORM SELECT */
+  .platform-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .platform-btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 16px 20px;
+    background: var(--surface2);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    color: var(--muted);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .platform-btn:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  .platform-btn.selected {
+    border-color: var(--accent);
+    background: rgba(0,229,255,0.08);
+    color: var(--accent);
+  }
+
+  .platform-icon { font-size: 20px; }
+
+  /* PERIOD SELECT */
+  .period-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  .period-btn {
+    padding: 8px 18px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .period-btn:hover { border-color: var(--accent); color: var(--text); }
+  .period-btn.selected {
+    border-color: var(--accent);
+    background: rgba(0,229,255,0.08);
+    color: var(--accent);
+  }
+
+  /* UPLOAD AREA */
+  .upload-area {
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 48px 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .upload-area:hover, .upload-area.dragover {
+    border-color: var(--accent);
+    background: rgba(0,229,255,0.04);
+  }
+
+  .upload-icon { font-size: 40px; margin-bottom: 12px; }
+
+  .upload-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .upload-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  #fileInput { display: none; }
+
+  .btn-upload {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .btn-upload:hover { opacity: 0.85; }
+
+  .file-info {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: rgba(168,255,62,0.08);
+    border: 1px solid rgba(168,255,62,0.2);
+    border-radius: 8px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--green);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* THRESHOLD */
+  .threshold-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .threshold-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .threshold-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .threshold-input {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .threshold-input:focus { border-color: var(--accent); }
+
+  /* ANALYZE BUTTON */
+  .btn-analyze {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--accent), #0097a7);
+    border: none;
+    border-radius: 12px;
+    color: #000;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+    margin-top: 8px;
+  }
+
+  .btn-analyze:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-analyze:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* RESULTS */
+  #resultsSection { display: none; }
+
+  .results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: gap;
+  }
+
+  .results-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .summary-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid;
+  }
+
+  .pill-red { background: rgba(255,77,109,0.1); border-color: rgba(255,77,109,0.3); color: var(--red); }
+  .pill-yellow { background: rgba(255,179,0,0.1); border-color: rgba(255,179,0,0.3); color: var(--yellow); }
+  .pill-green { background: rgba(168,255,62,0.1); border-color: rgba(168,255,62,0.3); color: var(--green); }
+
+  .pill-count { font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 600; }
+
+  /* ANOMALY TABLE */
+  .anomaly-grid {
+    display: grid;
+    gap: 12px;
+  }
+
+  .anomaly-row {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr 120px 120px 120px 100px;
+    align-items: center;
+    gap: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .anomaly-row:hover { border-color: var(--border); }
+  .anomaly-row.critical { border-left: 3px solid var(--red); }
+  .anomaly-row.warning { border-left: 3px solid var(--yellow); }
+  .anomaly-row.normal { border-left: 3px solid var(--green); }
+
+  .anomaly-metric {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .anomaly-meta {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-top: 3px;
+  }
+
+  .anomaly-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--text);
+    text-align: right;
+  }
+
+  .anomaly-avg {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .anomaly-change {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .change-up { color: var(--red); }
+  .change-up.good { color: var(--green); }
+  .change-down { color: var(--green); }
+  .change-down.bad { color: var(--red); }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    justify-content: center;
+  }
+
+  .status-critical { background: rgba(255,77,109,0.15); color: var(--red); }
+  .status-warning { background: rgba(255,179,0,0.15); color: var(--yellow); }
+  .status-normal { background: rgba(168,255,62,0.15); color: var(--green); }
+
+  .table-head {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px 120px 100px;
+    gap: 16px;
+    padding: 8px 24px;
+    margin-bottom: 4px;
+  }
+
+  .table-head span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .table-head span:not(:first-child) { text-align: right; }
+  .table-head span:last-child { text-align: center; }
+
+  /* CAMPAIGN FILTER */
+  .filter-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .filter-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .filter-select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  /* INSIGHT BOX */
+  .insight-box {
+    background: rgba(0,229,255,0.04);
+    border: 1px solid rgba(0,229,255,0.15);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 24px;
+  }
+
+  .insight-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .insight-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .insight-list li {
+    font-size: 13px;
+    color: var(--text);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .insight-list li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* RESET */
+  .btn-reset {
+    padding: 10px 22px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-reset:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  /* ERROR */
+  .error-box {
+    background: rgba(255,77,109,0.08);
+    border: 1px solid rgba(255,77,109,0.25);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--red);
+    margin-top: 12px;
+    display: none;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0 24px;
+  }
+
+  .section-divider span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    main { padding: 20px 16px; }
+    header { padding: 16px 20px; }
+    .anomaly-row { grid-template-columns: 1fr 90px 80px; }
+    .anomaly-row .anomaly-avg, .anomaly-row .anomaly-val { display: none; }
+    .table-head { grid-template-columns: 1fr 90px 80px; }
+    .table-head span:nth-child(2), .table-head span:nth-child(3) { display: none; }
+  }
+
+  .fade-in { animation: fadeIn 0.4s ease forwards; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">📡</div>
+    <div>
+      <div class="logo-text">Anomaly Detector</div>
+      <div class="logo-sub">PPC Performance Monitor</div>
+    </div>
+  </div>
+  <div class="badge">NO API · LOCAL ONLY</div>
+</header>
+
+<main>
+
+  <!-- STEP 1: Platform -->
+  <div class="step-card active" id="card1">
+    <div class="step-header">
+      <span class="step-num">STEP 01</span>
+      <span class="step-title">Select Platform</span>
+    </div>
+    <div class="platform-row">
+      <button class="platform-btn" onclick="selectPlatform('google')" id="btn-google">
+        <span class="platform-icon">🔵</span> Google Ads
+      </button>
+      <button class="platform-btn" onclick="selectPlatform('meta')" id="btn-meta">
+        <span class="platform-icon">🟣</span> Meta Ads
+      </button>
+    </div>
+    <div class="period-row">
+      <button class="period-btn" onclick="selectPeriod('daily')" id="period-daily">Daily</button>
+      <button class="period-btn" onclick="selectPeriod('weekly')" id="period-weekly">Weekly</button>
+      <button class="period-btn" onclick="selectPeriod('monthly')" id="period-monthly">Monthly</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Upload -->
+  <div class="step-card" id="card2">
+    <div class="step-header">
+      <span class="step-num">STEP 02</span>
+      <span class="step-title">Upload CSV Export</span>
+    </div>
+    <div class="upload-area" id="uploadArea" ondragover="handleDrag(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+      <div class="upload-icon">📂</div>
+      <div class="upload-title">Drop your CSV file here</div>
+      <div class="upload-sub" id="uploadHint">Export from Google Ads or Meta Ads → Reports → Download CSV</div>
+      <label class="btn-upload" for="fileInput">
+        <span>↑</span> Choose File
+      </label>
+      <input type="file" id="fileInput" accept=".csv" onchange="handleFile(this.files[0])">
+    </div>
+    <div class="file-info" id="fileInfo">
+      <span>✓</span>
+      <span id="fileName">—</span>
+      <span id="fileRows" style="color: var(--muted)"></span>
+    </div>
+    <div class="error-box" id="errorBox"></div>
+  </div>
+
+  <!-- STEP 3: Thresholds -->
+  <div class="step-card" id="card3">
+    <div class="step-header">
+      <span class="step-num">STEP 03</span>
+      <span class="step-title">Set Alert Thresholds</span>
+    </div>
+    <div class="threshold-row">
+      <div class="threshold-group">
+        <label class="threshold-label">🔴 CRITICAL — flag if change exceeds</label>
+        <input class="threshold-input" type="number" id="threshCritical" value="30" min="1" max="200"> 
+      </div>
+      <div class="threshold-group">
+        <label class="threshold-label">🟡 WARNING — flag if change exceeds</label>
+        <input class="threshold-input" type="number" id="threshWarning" value="15" min="1" max="200">
+      </div>
+      <div class="threshold-group">
+        <label class="threshold-label">📊 Baseline periods to compare</label>
+        <input class="threshold-input" type="number" id="baselinePeriods" value="3" min="2" max="10">
+      </div>
+    </div>
+    <button class="btn-analyze" id="analyzeBtn" onclick="runAnalysis()" disabled>
+      ⚡ Run Anomaly Detection
+    </button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultsSection">
+    <div class="section-divider"><span>Analysis Results</span></div>
+
+    <div class="results-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <div class="results-title" id="resultsTitle">—</div>
+      <button class="btn-reset" onclick="resetAll()">↺ New Analysis</button>
+    </div>
+
+    <div class="summary-pills" id="summaryPills"></div>
+
+    <div class="filter-row">
+      <span class="filter-label">FILTER:</span>
+      <select class="filter-select" id="statusFilter" onchange="renderTable()">
+        <option value="all">All Metrics</option>
+        <option value="critical">Critical Only</option>
+        <option value="warning">Warning Only</option>
+        <option value="normal">Normal Only</option>
+      </select>
+      <select class="filter-select" id="campaignFilter" onchange="renderTable()">
+        <option value="all">All Campaigns</option>
+      </select>
+    </div>
+
+    <div class="table-head">
+      <span>Metric / Campaign</span>
+      <span>Latest</span>
+      <span>Avg (baseline)</span>
+      <span>Change</span>
+      <span style="text-align:center">Status</span>
+    </div>
+    <div class="anomaly-grid" id="anomalyGrid"></div>
+
+    <div class="insight-box" id="insightBox">
+      <div class="insight-title">💡 Key Insights</div>
+      <ul class="insight-list" id="insightList"></ul>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let state = {
+  platform: null,
+  period: 'daily',
+  rawData: [],
+  headers: [],
+  analysisResults: []
+};
+
+// ─── PLATFORM COLUMN MAPS ────────────────────────────────────────────────────
+const GOOGLE_COLS = {
+  date: ['Day', 'Date', 'Week', 'Month'],
+  campaign: ['Campaign', 'Campaign name'],
+  clicks: ['Clicks'],
+  impressions: ['Impr.', 'Impressions'],
+  ctr: ['CTR'],
+  cpc: ['Avg. CPC', 'Avg CPC'],
+  cost: ['Cost', 'Spend'],
+  conversions: ['Conversions', 'Conv.'],
+  cpa: ['Cost / conv.', 'Cost/conv.'],
+  roas: ['Conv. value/cost', 'ROAS']
+};
+
+const META_COLS = {
+  date: ['Day', 'Date', 'Week', 'Month', 'Reporting starts', 'Reporting ends'],
+  campaign: ['Campaign name', 'Campaign'],
+  clicks: ['Clicks (all)', 'Clicks', 'Link clicks'],
+  impressions: ['Impressions'],
+  ctr: ['CTR (all)', 'CTR (link click-through rate)', 'CTR'],
+  cpc: ['CPC (all)', 'CPC (cost per link click)', 'CPC'],
+  cost: ['Amount spent', 'Spend', 'Amount Spent (USD)'],
+  conversions: ['Results', 'Conversions', 'Website purchases'],
+  cpa: ['Cost per result', 'Cost per purchase'],
+  roas: ['Purchase ROAS', 'ROAS']
+};
+
+const METRIC_LABELS = {
+  clicks: 'Clicks',
+  impressions: 'Impressions',
+  ctr: 'CTR',
+  cpc: 'CPC (Avg.)',
+  cost: 'Cost / Spend',
+  conversions: 'Conversions',
+  cpa: 'Cost per Conversion',
+  roas: 'ROAS'
+};
+
+// good direction: up = good for these metrics
+const GOOD_UP = ['clicks', 'impressions', 'ctr', 'conversions', 'roas'];
+const GOOD_DOWN = ['cpc', 'cost', 'cpa'];
+
+// ─── UI HELPERS ──────────────────────────────────────────────────────────────
+function selectPlatform(p) {
+  state.platform = p;
+  document.getElementById('btn-google').classList.toggle('selected', p === 'google');
+  document.getElementById('btn-meta').classList.toggle('selected', p === 'meta');
+  document.getElementById('uploadHint').textContent =
+    p === 'google'
+      ? 'Google Ads → Reports → Schedule → Download CSV'
+      : 'Meta Ads Manager → Export → Export Table Data (CSV)';
+  checkReady();
+}
+
+function selectPeriod(p) {
+  state.period = p;
+  ['daily','weekly','monthly'].forEach(x =>
+    document.getElementById('period-' + x).classList.toggle('selected', x === p)
+  );
+}
+
+function checkReady() {
+  document.getElementById('analyzeBtn').disabled = !(state.platform && state.rawData.length > 0);
+}
+
+function handleDrag(e) { e.preventDefault(); document.getElementById('uploadArea').classList.add('dragover'); }
+function handleDragLeave() { document.getElementById('uploadArea').classList.remove('dragover'); }
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('uploadArea').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) handleFile(file);
+}
+
+// ─── CSV PARSING ─────────────────────────────────────────────────────────────
+function handleFile(file) {
+  if (!file || !file.name.endsWith('.csv')) {
+    showError('Please upload a valid .csv file.');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const { headers, rows } = parseCSV(e.target.result);
+      state.headers = headers;
+      state.rawData = rows;
+      document.getElementById('fileInfo').style.display = 'flex';
+      document.getElementById('fileName').textContent = file.name;
+      document.getElementById('fileRows').textContent = `(${rows.length} rows detected)`;
+      document.getElementById('errorBox').style.display = 'none';
+      checkReady();
+    } catch (err) {
+      showError('Could not parse CSV: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function parseCSV(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  if (lines.length < 2) throw new Error('File has no data rows.');
+
+  // Find header row (skip summary/report title rows from Google Ads)
+  let headerIdx = 0;
+  for (let i = 0; i < Math.min(5, lines.length); i++) {
+    const cols = splitCSVLine(lines[i]);
+    if (cols.length > 3) { headerIdx = i; break; }
+  }
+
+  const headers = splitCSVLine(lines[headerIdx]).map(h => h.replace(/^"|"$/g, '').trim());
+  const rows = [];
+  for (let i = headerIdx + 1; i < lines.length; i++) {
+    const vals = splitCSVLine(lines[i]);
+    if (vals.length < 2) continue;
+    const row = {};
+    headers.forEach((h, idx) => {
+      row[h] = (vals[idx] || '').replace(/^"|"$/g, '').trim();
+    });
+    rows.push(row);
+  }
+  return { headers, rows };
+}
+
+function splitCSVLine(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    if (line[i] === '"') { inQuotes = !inQuotes; }
+    else if (line[i] === ',' && !inQuotes) { result.push(current); current = ''; }
+    else { current += line[i]; }
+  }
+  result.push(current);
+  return result;
+}
+
+// ─── COLUMN FINDER ───────────────────────────────────────────────────────────
+function findCol(headers, candidates) {
+  for (const c of candidates) {
+    const found = headers.find(h => h.toLowerCase() === c.toLowerCase());
+    if (found) return found;
+  }
+  // fuzzy: partial match
+  for (const c of candidates) {
+    const found = headers.find(h => h.toLowerCase().includes(c.toLowerCase()));
+    if (found) return found;
+  }
+  return null;
+}
+
+function parseNum(str) {
+  if (!str || str === '--' || str === '-') return null;
+  return parseFloat(str.replace(/[%,$,€,£,\s]/g, '').replace(',', '.')) || null;
+}
+
+// ─── ANALYSIS ────────────────────────────────────────────────────────────────
+function runAnalysis() {
+  const colMap = state.platform === 'google' ? GOOGLE_COLS : META_COLS;
+  const headers = state.headers;
+  const rows = state.rawData;
+
+  const threshCritical = parseFloat(document.getElementById('threshCritical').value) || 30;
+  const threshWarning = parseFloat(document.getElementById('threshWarning').value) || 15;
+  const baselinePeriods = parseInt(document.getElementById('baselinePeriods').value) || 3;
+
+  // Find columns
+  const dateCol = findCol(headers, colMap.date);
+  const campaignCol = findCol(headers, colMap.campaign);
+
+  const metricCols = {};
+  Object.keys(colMap).forEach(k => {
+    if (k === 'date' || k === 'campaign') return;
+    const col = findCol(headers, colMap[k]);
+    if (col) metricCols[k] = col;
+  });
+
+  if (!dateCol) {
+    showError('Could not find a Date column. Make sure your CSV export includes a date breakdown.');
+    return;
+  }
+
+  if (Object.keys(metricCols).length === 0) {
+    showError('Could not find any recognizable metric columns (Clicks, Impressions, CTR, CPC, Cost, Conversions). Please check your CSV export settings.');
+    return;
+  }
+
+  // Group rows by campaign (or "All" if no campaign col)
+  const campaigns = {};
+  rows.forEach(row => {
+    const campaign = campaignCol ? (row[campaignCol] || 'All') : 'All';
+    if (!campaigns[campaign]) campaigns[campaign] = [];
+    campaigns[campaign].push(row);
+  });
+
+  // For each campaign, sort by date, then compute anomalies
+  const results = [];
+
+  Object.entries(campaigns).forEach(([campaign, campRows]) => {
+    // Sort rows by date (best effort)
+    campRows.sort((a, b) => {
+      const da = new Date(a[dateCol]);
+      const db = new Date(b[dateCol]);
+      return da - db;
+    });
+
+    const n = campRows.length;
+    if (n < 2) return;
+
+    const latest = campRows[n - 1];
+
+    Object.entries(metricCols).forEach(([metric, col]) => {
+      const latestVal = parseNum(latest[col]);
+      if (latestVal === null) return;
+
+      // baseline: average of previous N periods
+      const baseStart = Math.max(0, n - 1 - baselinePeriods);
+      const baseRows = campRows.slice(baseStart, n - 1);
+      const baseVals = baseRows.map(r => parseNum(r[col])).filter(v => v !== null);
+      if (baseVals.length === 0) return;
+
+      const avg = baseVals.reduce((a, b) => a + b, 0) / baseVals.length;
+      if (avg === 0) return;
+
+      const changePct = ((latestVal - avg) / Math.abs(avg)) * 100;
+      const absChange = Math.abs(changePct);
+
+      let status = 'normal';
+      if (absChange >= threshCritical) status = 'critical';
+      else if (absChange >= threshWarning) status = 'warning';
+
+      results.push({
+        campaign,
+        metric,
+        col,
+        latestVal,
+        avg,
+        changePct,
+        absChange,
+        status,
+        latestDate: latest[dateCol] || ''
+      });
+    });
+  });
+
+  state.analysisResults = results;
+
+  // Populate campaign filter
+  const campaignFilter = document.getElementById('campaignFilter');
+  campaignFilter.innerHTML = '<option value="all">All Campaigns</option>';
+  Object.keys(campaigns).forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    campaignFilter.appendChild(opt);
+  });
+
+  // Show results
+  document.getElementById('resultsSection').style.display = 'block';
+  document.getElementById('resultsSection').classList.add('fade-in');
+  document.getElementById('resultsTitle').textContent =
+    `${state.platform === 'google' ? 'Google Ads' : 'Meta Ads'} · ${state.period.charAt(0).toUpperCase() + state.period.slice(1)} Analysis · ${results.length} metric checks`;
+
+  renderSummary(results);
+  renderTable();
+  renderInsights(results);
+
+  document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderSummary(results) {
+  const critical = results.filter(r => r.status === 'critical').length;
+  const warning = results.filter(r => r.status === 'warning').length;
+  const normal = results.filter(r => r.status === 'normal').length;
+
+  document.getElementById('summaryPills').innerHTML = `
+    <div class="pill pill-red">
+      <div class="pill-count">${critical}</div>
+      <div>Critical Anomalies</div>
+    </div>
+    <div class="pill pill-yellow">
+      <div class="pill-count">${warning}</div>
+      <div>Warnings</div>
+    </div>
+    <div class="pill pill-green">
+      <div class="pill-count">${normal}</div>
+      <div>Normal Metrics</div>
+    </div>
+  `;
+}
+
+function renderTable() {
+  const statusFilter = document.getElementById('statusFilter').value;
+  const campaignFilter = document.getElementById('campaignFilter').value;
+
+  let filtered = state.analysisResults;
+  if (statusFilter !== 'all') filtered = filtered.filter(r => r.status === statusFilter);
+  if (campaignFilter !== 'all') filtered = filtered.filter(r => r.campaign === campaignFilter);
+
+  // Sort: critical first, then warning, then normal; within group by absChange desc
+  filtered.sort((a, b) => {
+    const order = { critical: 0, warning: 1, normal: 2 };
+    if (order[a.status] !== order[b.status]) return order[a.status] - order[b.status];
+    return b.absChange - a.absChange;
+  });
+
+  const grid = document.getElementById('anomalyGrid');
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty-state">No results match the current filters.</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(r => {
+    const isUp = r.changePct > 0;
+    const goodUp = GOOD_UP.includes(r.metric);
+    const changeClass = isUp
+      ? (goodUp ? 'change-up good' : 'change-up')
+      : (goodUp ? 'change-down bad' : 'change-down');
+
+    const sign = isUp ? '+' : '';
+    const arrow = isUp ? '▲' : '▼';
+
+    const statusClass = { critical: 'status-critical', warning: 'status-warning', normal: 'status-normal' }[r.status];
+    const rowClass = r.status;
+
+    const fmt = (v) => {
+      if (r.metric === 'ctr') return v.toFixed(2) + '%';
+      if (r.metric === 'cpc' || r.metric === 'cost' || r.metric === 'cpa') return '$' + v.toFixed(2);
+      if (r.metric === 'roas') return v.toFixed(2) + 'x';
+      return Math.round(v).toLocaleString();
+    };
+
+    const campaigns = state.analysisResults.map(x => x.campaign);
+    const showCampaign = [...new Set(campaigns)].length > 1;
+
+    return `
+      <div class="anomaly-row ${rowClass}">
+        <div>
+          <div class="anomaly-metric">${METRIC_LABELS[r.metric] || r.metric}</div>
+          ${showCampaign ? `<div class="anomaly-meta">${r.campaign}</div>` : ''}
+          ${r.latestDate ? `<div class="anomaly-meta">${r.latestDate}</div>` : ''}
+        </div>
+        <div class="anomaly-val">${fmt(r.latestVal)}</div>
+        <div class="anomaly-avg">${fmt(r.avg)}</div>
+        <div class="anomaly-change ${changeClass}">${arrow} ${sign}${r.changePct.toFixed(1)}%</div>
+        <div style="text-align:center">
+          <span class="status-badge ${statusClass}">
+            ${{ critical: '🔴', warning: '🟡', normal: '🟢' }[r.status]}
+            ${r.status.toUpperCase()}
+          </span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderInsights(results) {
+  const critical = results.filter(r => r.status === 'critical');
+  const insights = [];
+
+  if (critical.length === 0) {
+    insights.push('No critical anomalies detected. All key metrics are within normal range.');
+  }
+
+  critical.forEach(r => {
+    const dir = r.changePct > 0 ? 'increased' : 'decreased';
+    const pct = Math.abs(r.changePct).toFixed(1);
+    const label = METRIC_LABELS[r.metric] || r.metric;
+    const camp = r.campaign !== 'All' ? ` in campaign "${r.campaign}"` : '';
+    insights.push(`${label}${camp} has ${dir} by ${pct}% vs baseline — investigate immediately.`);
+  });
+
+  if (results.filter(r => r.status === 'warning').length > 0) {
+    insights.push(`${results.filter(r => r.status === 'warning').length} metric(s) show moderate changes worth monitoring.`);
+  }
+
+  // Specific patterns
+  const cpcAnomaly = critical.find(r => r.metric === 'cpc');
+  const convAnomaly = critical.find(r => r.metric === 'conversions');
+  if (cpcAnomaly && cpcAnomaly.changePct > 0 && convAnomaly && convAnomaly.changePct < 0) {
+    insights.push('CPC rising while Conversions falling — possible audience saturation or landing page issue.');
+  }
+
+  const ctrAnomaly = critical.find(r => r.metric === 'ctr');
+  if (ctrAnomaly && ctrAnomaly.changePct < 0) {
+    insights.push('CTR drop detected — check if ad copy or creative has changed recently, or if ad fatigue is a factor.');
+  }
+
+  document.getElementById('insightList').innerHTML = insights.map(i => `<li>${i}</li>`).join('');
+}
+
+function showError(msg) {
+  const box = document.getElementById('errorBox');
+  box.textContent = '⚠ ' + msg;
+  box.style.display = 'block';
+}
+
+function resetAll() {
+  state.rawData = [];
+  state.headers = [];
+  state.analysisResults = [];
+  document.getElementById('resultsSection').style.display = 'none';
+  document.getElementById('fileInfo').style.display = 'none';
+  document.getElementById('fileName').textContent = '—';
+  document.getElementById('fileInput').value = '';
+  document.getElementById('errorBox').style.display = 'none';
+  document.getElementById('analyzeBtn').disabled = true;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
